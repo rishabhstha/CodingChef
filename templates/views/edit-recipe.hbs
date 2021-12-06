@@ -1,0 +1,110 @@
+{{>header}}
+
+<div class="show-page-container">
+    <div class="recipe-container">
+        <h1 class='py-4' style="text-align : center;">
+            Add a New Recipe
+        </h1>
+        <div class="add-recipe-container-whitebox">
+            <div style="width:80%; margin: 25px auto;">
+                <form action="/addrecipe" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" name="name" id="name" placeholder="Name"
+                            value="{{recipes.recipeName}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Recipe Image Url</label>
+                        <input class="form-control" type="text" name="image" id="image" placeholder="Image url"
+                            value="{{recipes.recipePhotoURL}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="directions">Recipe Description</label>
+                        <textarea class="form-control" name="description"
+                            placeholder="Type the recipe description here..." rows=10>{{recipes.description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="serving-size">Serving Size</label>
+                        <input class="form-control" type="text" name="servingSize" id="serving-size"
+                            placeholder="Serving size" value="{{recipes.servingSize}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serving-size">Preparation Time</label>
+                        <input class="form-control" type="text" name="prepTime" id="prep-time"
+                            placeholder="Preparation Time" value="{{recipes.prepTime}}" required>
+                    </div>
+                    <div class="form-group">
+                        <div style="width:100%; display:flex; justify-content: space-between;">
+                            <label for="ingredients">Ingredients</label>
+                            <div class="icon-add-delete">
+                                <span class="mx-1"><i class="fas fa-plus" id="green"></i></span>
+                                <span class="mx-1"><i class="fas fa-minus" id="red"></i></span>
+                            </div>
+                        </div>
+                        <table class="table ingredientTable" style="border: 2px solid #dee2e6">
+                            <thead>
+                                <tr>
+                                    <th>Ingredient</th>
+                                    <th>Quantity</th>
+                                    <th>Measurement</th>
+                                    {{!-- <th>Measurement</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody id="ingredient-table-body">
+                                {{#each recipe_Ingredients}}
+                                <tr id="row{{counter @index}}">
+                                    <td>
+                                        <select class="form-control" name="ingredient{{counter @index}}"
+                                            id="ingredientBox{{counter @index}}" required="true">
+                                            <option selected>{{this.ingredientName}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" name="quantity{{counter @index}}"
+                                            placeholder="Quantity" min="0" step="0.10" required="true"
+                                            value="{{this.quantity}}">
+                                    </td>
+                                    <td id="td3-{{counter @index}}">
+                                        <select class="form-control" name="measurement{{counter @index}}"
+                                            required="true" id="measurement{{counter @index}}">
+                                            <option selected="true">{{this.measurementName}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <label for="directions">Recipe Directions</label>
+                        <textarea class="form-control" name="directions" placeholder="Type recipe directions here..."
+                            rows=12>{{recipes.recipeDirections}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="private">Make it private?</label>
+                        <select class="form-control" name="private" id="private" required>
+                            {{#if recipes.recipePrivate}}
+                            <option selected>Yes</option>
+                            <option>No</option>
+                            {{else}}
+                            <option>Yes</option>
+                            <option selected>No</option>
+                            {{/if}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">
+                            Submit!
+                        </button>
+                    </div>
+                </form>
+                <a href="/user">Go Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/utils/add-recipe.measurements.js"></script>
+<script src="/utils/add-recipe.ingredient.js"></script>
+<script src="/utils/edit-recipe.utils.js"></script>
+{{>footer}}

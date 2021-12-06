@@ -1,0 +1,24 @@
+{{>header}}
+    <div class="mainContainer" style="margin-top: 70px; height: 60vh;">
+        <main role='main'>
+            <div class="jumbotron mx-5" style="display: flex; flex-direction:column; justify-content:center; align-items:center;">
+                <h1 class="text-center">User's Name</h1>
+                <p class="text-center"><em>Decription about user or his recipes</em></p>
+                <a href="/addrecipe" class="btn btn-primary my-2" style="width: 300px;">Add a New Recipe</a>
+            </div>
+            {{!-- Food Section --}}
+            <div class="card-columns px-5" id="foodSection">
+                {{#each recipes}}
+                <div class="card">
+                    <img class="card-img-top imageCells" src="{{this.recipePhotoURL}}">
+                    <div class="card-body">
+                    <h5 class="card-title">{{this.recipeName}}</h5>
+                    <p class="card-text">{{this.recipeDescription}}</p>
+                    <a href="/recipe/{{this.recipeID}}" class="btn btn-info btn-sm px-5">View</a>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </main>
+    </div>
+{{>footer}}

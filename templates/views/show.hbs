@@ -1,0 +1,59 @@
+{{>header}}
+
+<div class="show-page-container">
+    <div class="recipe-container">
+        <div class="recipe-container-whitebox">
+            <div class="show-page-image-container">
+                <img style="height: 100%; width:40%;" src={{recipes.recipePhotoURL}} alt="recipeImg">
+                <div class="show-page-title" style="height: 100%; width:55%;">
+                    <h2><u>{{recipes.recipeName}}</u></h2>
+                    <p><em>{{recipes.description}}</em></p>
+                    {{#if global_check_auth}}
+                    <div class="show-page-buttons">
+                        <a class="btn btn-sm btn-warning" href="/recipe/{{recipes.recipeID}}/edit">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="/recipe/{{recipes.recipeID}}/delete">
+                            Delete
+                        </a>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="show-page-size-time">
+                <span><strong>Preparation: </strong>{{recipes.prepTime}}</span>
+                <span><strong>Serving Size: </strong>{{recipes.servingSize}}</span>
+                <span><strong>Total Calories: </strong>{{RecipeSpec.recipeCalories}}</span>
+                <span><strong>Total Cost: </strong>${{RecipeSpec.recipeCost}}</span>
+            </div>
+            <hr style="width: 85%;">
+            <h4 style="margin: 15px auto 0; width: 85%;">Ingredients</h4>
+            <div class="show-page-ingredients">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Quantity</th>
+                            <th>Measurement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each recipe_Ingredients}}
+                        <tr>
+                            <td>{{this.ingredientName}}</td>
+                            <td>{{this.quantity}}</td>
+                            <td>{{this.measurementName}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <h4 style="margin: 15px auto 0; width: 85%;">Recipe directions</h4>
+            <div class="show-page-directions">
+                {{recipes.recipeDirections}}
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+{{>footer}}
